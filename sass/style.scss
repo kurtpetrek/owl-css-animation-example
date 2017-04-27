@@ -1,0 +1,300 @@
+/* CSS Reset and box sizing for all elements */
+/* ::before and ::after ended up not being used  */
+*, *::before, *::after {
+/*   box-sizing: border-box makes an element factor padding and border size into the elements defined width */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {  
+/*   Fill vertical window */
+  height: 100vh;
+/*   Flex positioning allows easy vertical centering */
+  display: flex;
+/*   center children horizontally */
+  justify-content: center;
+/*   center children vertically */
+  align-items: center;
+/*   Repeating background for wall paper effect */
+  background: url(http://cdn.mysitemyway.com/etc-mysitemyway/webtreats/assets/posts/1107/thumbs/seamless-olive-green-patterns-17.jpg);
+}
+
+.owl-scene {
+  background: black;
+/*   1vh = 1% of the height of the window */
+/*   1vw = 1% of the width of the window */
+/*  1 vmin = (1vh when the height of the window is less than the width) OR (1vw when the width of the window is smaller than the height) */
+/*   essentially fill the windows width or height whichever is smaller */
+/*   with everything built on vmin and % the whole image and animation is responsive */
+  width: 100vmin;
+  height: 100vmin;
+  
+/*   These slight differences in border colors makes a window frame like effect */
+  border-top: #dfdfdf 5vmin solid;
+  border-right: #efefef 5vmin solid;
+  border-bottom: #fefefe 5vmin solid;
+  border-left: #efefef 5vmin solid;
+  
+/*   Position relative for absolute positioning inside */
+  position: relative;
+  
+/*   slight shadow on container for a bit of 3d effect */
+  box-shadow: 0px 0px 10px .5vmin rgba(0,0,0,0.5);
+  
+/*   hide owl when flying out of the container */
+  overflow: hidden;
+}
+
+/* This is the animation for the owls main body
+/* since all the parts of the owl are children to the body they will move and fade in with it */
+@keyframes move-body {
+  0% {
+/*     Top and left absolute positioning within the container will move the owl within */
+    top: 50%;
+    left: 50%;
+/*     This controls the rotation of the body */
+/*     the translate must be restated so the value is not lost */
+    transform: translate(-50%, -50%) rotate(0deg);
+    
+/*     opacity starts at 0 so the owl fades in */
+    opacity: 0;
+  }
+  50% {
+    top: 50%;
+    left: 50%;
+    
+/*     opacity changes to 1 to fade in owl  */
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  70% {
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%) rotate(30deg);
+  }
+  100% {
+    top: -150%;
+    left: 170%;
+    transform: translate(-50%, -50%) rotate(30deg);
+/*     opacity restated so element doesnt fade back out if looped in some browsers */
+    opacity: 1;
+  }
+}
+
+/* Main body of the owl */
+.body {
+/*   I messed up a bit on the sizing so I had to convert the sizing back to content-box on this element */
+  box-sizing: content-box;
+  height: 55vmin;
+  width: 27vmin;
+  background: white;
+  
+/*   border radius rounds the corners of the element */
+/*   when 4 values are passed the first effects the top left corner, the second effects the top right corner the third effects the bottom right and the fourth effects the bottom left */
+  border-radius: 65vmin 65vmin 95vmin 25vmin;
+
+/*   border for stroke effect which covers part of the leg at the bottom */
+  border: 2.5vmin solid black;
+  
+/*   position the body absolutely within the image container */
+  position: absolute;
+  
+/*   This line of CSS places the anchor point of the element in the center instead of top left corner allowing easier vertical and horizontal center */
+  transform: translate(-50%, -50%);
+  
+/*   vertically center translated element */
+  top: 50%;
+  
+/*   horizontally center translated element */
+  left: 50%;
+  
+/*   This applies the move-body animation shown above to the element lasting 10 seconds in length */
+/*   The element will then return to its default state and position shown in this classes css */
+  animation: move-body 10s;
+  
+/*   make the cursor look like a pointer for poking after  animation */
+/*   poke css is at the bottom for positioning the wing */
+  cursor: pointer;
+}
+
+.tail {
+  width: 17.5vmin;
+  height: 26vmin;
+  background: white;
+  border: 2.5vmin black solid;
+  
+/*   Leave the border off the top  */
+  border-top: none; 
+  
+/*   rounds off some of the edges */
+  border-radius: 0% 20% 100% 0%;
+  
+/*   position the tail absolutely within the body */
+  position: absolute;
+  
+  top: 75%;
+/*   offset the size of the border so the tail is flat with the back of the body */
+  left: -2.5%;
+}
+
+.beak {
+/*   These four lines of CSS triangle */
+/*   for a great explanation and visualization for how this works check out  */
+/*   https:/*css-tricks.com/snippets/css/css-triangle/ */
+  width: 0px;
+  height: 0px;
+  border: 2.5vmin transparent solid;
+  border-left: 5vmin solid black;
+  
+/*   position the beak absolutely within the body */
+  position: absolute;
+  top: 25%;
+  left: 75%;
+}
+
+.face-left {
+  width: 13vmin;
+  height: 18vmin;
+  
+  border: 2.5vmin black solid;
+/*   no border on the right to leave it open */
+  border-right: none;
+  
+/*   round all corners except bottom right */
+  border-radius: 50% 50% 0% 50%;
+  
+/*   position absolutely within the body */
+  position: absolute;
+  top: 10%;
+  left: 30%;
+}
+
+.face-right {
+  width: 7vmin;
+  height: 18vmin;
+  border-top: 2.5vmin black solid;
+  border-bottom: 2.5vmin black solid;
+/*   round top left and right corners */
+  border-radius: 50% 50% 0% 0%;
+  
+/*   position absolutely within the body */
+  position: absolute;
+  left: 77%;
+  top: 10%;
+}
+
+/* This is the animation for the eye movement */
+@keyframes move-eye {
+  0% {
+    left: 30%;
+    top: 20%;
+  }
+  50% {
+    left: 30%;
+    top: 30%;
+  }
+  56% {
+    left: 30%;
+    top: 30%;
+  }
+  90% {
+    left: 40%;
+    top: 10%;
+  }
+}
+
+.eye {
+  
+/*   These 3 lines of CSS create a circle with a 3vmin diameter */
+  width: 3vmin;
+  height: 3vmin;
+  border-radius: 50%;
+  
+  background: black;
+  
+/*   absolutely position within body */
+  position: absolute;
+  left: 30%;
+  top: 20%;
+  
+/*   assign move-eye animation defined above */
+  animation: move-eye 10s;
+}
+
+@keyframes wing-move {
+/*   this keeps the wing still for the first 20% */
+  0%, 20% {
+/*     this controls the rotation of the wing and keeps the anchor in the center for positioning */
+    transform: translate(-50%, -50%) rotate(-13deg);
+    top: 65%;
+    left: 50%;
+  }
+  
+/*   by listing percentages like this the wing flap can be done easily and with less lines of css */
+  30%,70%,85% {
+    transform: translate(-50%, -50%) rotate(10deg);
+    top: 65%;
+    left: 10%;
+  }
+  
+  60%,80%,90% {
+    transform: translate(-50%, -50%) rotate(-10deg);
+    top: 65%;
+    left: 30%;
+  }
+}
+
+.wing {
+  width: 38vmin;
+  height: 35vmin;
+  background: white;
+  border: 2.5vmin black solid;
+  
+/*   round off top left and bottom right corners */
+  border-radius: 100% 0% 100% 0%;
+  
+/*   position absolutely within body */
+  position: absolute;
+  
+/*   place elements anchor in center and rotate it */
+  transform: translate(-50%, -50%) rotate(-13deg);
+  top: 65%;
+  left: 50%;
+  
+/*   assign wing-move animation defined above */
+  animation: wing-move 10s;
+  
+/*   transition used to animate poking animation defined at bottom */
+  transition: top .5s, transform .5s;
+}
+
+.foot {
+  height: 8vmin;
+  width: 2vmin;
+  background: white;
+  position: absolute;
+  top: 90%;
+  left: 70%;
+}
+
+.perch {
+  width: 44vmin;
+  height: 3vmin;
+  background: white;
+  position: absolute;
+  left: 25%;
+  top: 83%;
+}
+
+/* When the cursor hovers over the body the wing will move up and rotate */
+.body:hover .wing {
+  top: 58%;
+  transform: translate(-50%, -50%) rotate(-3deg);
+}
+
+/* When the user clicks on the body the wing will move down and rotate further */
+.body:active .wing {
+  top: 68%;
+  transform: translate(-50%, -50%) rotate(4deg);
+}
